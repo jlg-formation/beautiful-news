@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchWelcomeText } from "../services/textService";
+import { getBeautifulNews } from "../services/textService";
 
 const Index = () => {
   const [welcomeText, setWelcomeText] = useState<string>("Chargement en cours...");
@@ -11,7 +11,7 @@ const Index = () => {
   useEffect(() => {
     const loadText = async () => {
       try {
-        const text = await fetchWelcomeText();
+        const text = await getBeautifulNews();
         setWelcomeText(text);
       } catch (error) {
         console.error("Erreur lors du chargement du texte:", error);

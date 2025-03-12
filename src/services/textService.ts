@@ -2,7 +2,7 @@
 /**
  * Service qui simule une requête API asynchrone pour récupérer du texte
  */
-export const fetchWelcomeText = async (): Promise<string> => {
+export const getBeautifulNews = async (): Promise<string> => {
   // Simuler un délai de 2 secondes
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -10,3 +10,4 @@ export const fetchWelcomeText = async (): Promise<string> => {
     }, 2000);
   });
 };
+
