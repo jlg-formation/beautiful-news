@@ -38,6 +38,8 @@ export const getBeautifulNews = async (): Promise<News> => {
           Donne une reponse sur maximum 100 caracteres.
           Ne met rien en gras.
           Ne site pas de source.
+          Ne met pas de lien.
+          Ne produit pas de markdown mais du texte.
           Quelles est le titre de la news la plus positive aujourd'hui que tu trouves sur internet ?
           `,
       },
