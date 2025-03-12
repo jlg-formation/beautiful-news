@@ -1,8 +1,29 @@
 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { fetchWelcomeText } from "../services/textService";
 
 const Index = () => {
+  const [welcomeText, setWelcomeText] = useState<string>("Chargement en cours...");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadText = async () => {
+      try {
+        const text = await fetchWelcomeText();
+        setWelcomeText(text);
+      } catch (error) {
+        console.error("Erreur lors du chargement du texte:", error);
+        setWelcomeText("Une erreur est survenue lors du chargement du texte.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadText();
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
       <motion.div 
@@ -12,16 +33,22 @@ const Index = () => {
         className="text-center p-8"
       >
         <p className="text-xl text-slate-800 mb-4 leading-relaxed">
-          Bienvenue sur cette page minimaliste.
+          {isLoading ? (
+            <span className="inline-block animate-pulse">
+              {welcomeText}
+            </span>
+          ) : (
+            welcomeText
+          )}
         </p>
-        <a 
-          href="https://lovable.dev" 
+        <Link 
+          to="https://lovable.dev" 
           target="_blank" 
           rel="noopener noreferrer"
           className="inline-block text-blue-600 hover:text-blue-800 transition-colors duration-300 underline decoration-2 underline-offset-4"
         >
           Découvrir Lovable
-        </a>
+        </Link>
       </motion.div>
     </div>
   );
