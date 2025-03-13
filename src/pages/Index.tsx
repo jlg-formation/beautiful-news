@@ -76,14 +76,16 @@ const Index = () => {
             </Link>
           )}
           
-          <Button 
-            onClick={loadRandomNews} 
-            disabled={isLoading}
-            className="mt-2"
-            variant="outline"
-          >
-            Actualité suivante <ChevronRight className="ml-1" />
-          </Button>
+          {!isLoading && newsArrayRef.current.length > 0 && (
+            <Button 
+              onClick={loadRandomNews} 
+              disabled={isLoading}
+              className="mt-2"
+              variant="outline"
+            >
+              Actualité suivante <ChevronRight className="ml-1" />
+            </Button>
+          )}
         </div>
       </motion.div>
     </div>
