@@ -1,7 +1,9 @@
+
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getBeautifulNews } from "../services/textService";
+import { getRandomNumber } from "../lib/utils";
 
 const Index = () => {
   const [welcomeText, setWelcomeText] = useState<string>(
@@ -14,7 +16,8 @@ const Index = () => {
     const loadText = async () => {
       try {
         const newsArray = await getBeautifulNews();
-        const news = newsArray[0];
+        const randomIndex = getRandomNumber(0, newsArray.length - 1);
+        const news = newsArray[randomIndex];
         setWelcomeText(news.title);
         setUrl(news.url);
       } catch (error) {
