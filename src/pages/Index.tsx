@@ -18,6 +18,8 @@ const Index = () => {
         const newsArray = await getBeautifulNews();
         const randomIndex = getRandomNumber(0, newsArray.length - 1);
         const news = newsArray[randomIndex];
+        // Retirer l'élément sélectionné du tableau
+        newsArray.splice(randomIndex, 1);
         setWelcomeText(news.title);
         setUrl(news.url);
       } catch (error) {
