@@ -16,14 +16,14 @@ const getAPIKey = async (): Promise<string> => {
 };
 
 interface News {
-  content: string;
+  title: string;
   url: string;
 }
 
 /**
  * Service qui simule une requête API asynchrone pour récupérer du texte
  */
-export const getBeautifulNews = async (): Promise<News> => {
+export const getBeautifulNews = async (): Promise<News[]> => {
   await sleep(2000); // Simuler un délai de 2 secondes
   const apiKey = await getAPIKey(); // Récupérer la clé API depuis une variable d'environnement
   console.log("apiKey: ", apiKey);
@@ -35,52 +35,19 @@ export const getBeautifulNews = async (): Promise<News> => {
       {
         role: "user",
         content: `
-          Donne une reponse sur maximum 100 caracteres.
-          Ne met rien en gras.
-          Ne site pas de source.
-          Donne une réponse au hasard de tes recherches internet.
-          Quelles est le titre d'une news très positive aujourd'hui que tu trouves sur internet ?
-          Ne met pas de lien.
-          Enlève les liens.
-          Ne met pas de markdown.
-          Ne met pas de parenthèses ni de crochets.
-          Ne produit pas de markdown mais du texte.
+          Donne une reponse sous format json sans balise de code.
+          La reponse doit être un tableau avec maximum 10 éléments et minimum 3 éléments.
+          Chaque élément doit contenir une clé "title" et une clé "url".
+          Le titre doit être une chaine de caractères reflétant le titre de la news.
+          L'url doit être une chaine de caractères reflétant l'url de la source.
+          Quelles sont les 10 premières news positives aujourd'hui que tu trouves sur internet ?
           `,
       },
     ],
   });
 
   const content = completion.choices[0].message.content;
+  console.log("content: ", content);
 
-  const completion2 = await client.chat.completions.create({
-    model: "gpt-4o-search-preview",
-    web_search_options: {},
-    messages: [
-      {
-        role: "user",
-        content: `
-          Donne une reponse sur maximum 100 caracteres.
-          Ne met rien en gras.
-          Ne site pas de source.
-          Quelles est le titre de la news la plus positive aujourd'hui que tu trouves sur internet ?
-          `,
-      },
-      {
-        role: "assistant",
-        content: content,
-      },
-      {
-        role: "user",
-        content: `
-          Donne l'url de la source.
-          Ne la met pas au format markdown.
-          Donne la chaine de caractères exacte.
-          `,
-      },
-    ],
-  });
-
-  const url = completion2.choices[0].message.content;
-
-  return { content, url };
+  return JSON.parse(content) as News[];
 };

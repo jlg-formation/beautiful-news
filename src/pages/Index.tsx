@@ -13,8 +13,9 @@ const Index = () => {
   useEffect(() => {
     const loadText = async () => {
       try {
-        const news = await getBeautifulNews();
-        setWelcomeText(news.content);
+        const newsArray = await getBeautifulNews();
+        const news = newsArray[0];
+        setWelcomeText(news.title);
         setUrl(news.url);
       } catch (error) {
         console.error("Erreur lors du chargement du texte:", error);
