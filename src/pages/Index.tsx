@@ -56,6 +56,15 @@ const Index = () => {
         transition={{ duration: 0.6 }}
         className="text-center p-8 flex flex-col items-center"
       >
+        <motion.h1 
+          className="text-4xl font-bold mb-8 text-purple-600"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          La bonne nouvelle du jour
+        </motion.h1>
+        
         <p className="text-xl text-slate-800 mb-4 leading-relaxed">
           {isLoading ? (
             <span className="inline-block animate-pulse">{welcomeText}</span>
