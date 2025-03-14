@@ -1,4 +1,7 @@
 
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 /**
  * Génère un nombre aléatoire entre min et max (inclus)
  * @param min La valeur minimale
@@ -18,4 +21,11 @@ export function getRandomNumber(min: number, max: number): number {
  */
 export function classNames(...classes: (string | undefined)[]): string {
   return classes.filter(Boolean).join(' ');
+}
+
+/**
+ * Utility for merging tailwind classes
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

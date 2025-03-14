@@ -1,29 +1,27 @@
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+// This is a simple implementation for vanilla JS
+// Previously this was using next-themes and react components
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+function Toaster(props: any) {
+  // In a vanilla JS app, we would implement toasts differently
+  // This is a placeholder implementation
+  console.log('Toast requested with props:', props);
 
-  return (
-    <Sonner
-      theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props}
-    />
-  )
+  return {
+    // Simple API methods that would interact with the DOM
+    toast: (message: string, options?: any) => {
+      console.log('Toast:', message, options);
+      // Here we would create and manipulate DOM elements
+    },
+    success: (message: string, options?: any) => {
+      console.log('Success toast:', message, options);
+      // DOM manipulation for success toast
+    },
+    error: (message: string, options?: any) => {
+      console.log('Error toast:', message, options);
+      // DOM manipulation for error toast
+    }
+  };
 }
 
-export { Toaster }
+export { Toaster };
